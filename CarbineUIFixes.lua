@@ -6,7 +6,8 @@ local CarbineUIFixes = {
   author = "Zod Bain@Jabbit",
   allFixes = {
     "WhisperFix",
-    "ContextMenuPlayerFix"
+    "ContextMenuPlayerFix",
+    "BGContextMenuPlayerFix"
   },
   fixes = rawget(_G, "CarbineUIFixes") or {}
 }
