@@ -40,9 +40,13 @@ end
 
 function CarbineUIFixes:GetDependencies()
   self.dependencies = {self.uiMapperLib}
+  local duplicate = {}
   for k,fix in pairs(self.fixes) do
     for _,v in ipairs(fix.dependencies) do
-      table.insert(self.dependencies, v)
+      if not duplicate[v] then
+        table.insert(self.dependencies, v)
+        duplicate[v] = true
+      end
     end
   end
 end
