@@ -5,6 +5,7 @@ local CarbineUIFixes = {
   version = "1.5.4.13938.0.2.1",
   author = "Zod Bain@Jabbit",
   allFixes = {
+    "WhisperFix",
     "ContextMenuPlayerFix"
   },
   fixes = rawget(_G, "CarbineUIFixes") or {}

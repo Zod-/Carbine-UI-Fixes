@@ -45,6 +45,18 @@ function CarbineUIFixes:BuildUIHelper(title, description, url)
   })
 end
 
+function CarbineUIFixes:BuildUIWhisperFix()
+  local description = {
+    "When responding to an account whisper and then trying to send another message will tell you the user does not exist since the name gets cutoff.",
+    "\nFurthermore names with accented characters also get cut off when whispering them more than once."
+  }
+  self:BuildUIHelper(
+    "WhisperResponseFix",
+     description,
+    "https://forums.wildstar-online.com/forums/index.php?/topic/152665-whisper-and-account-whisper-issues/"
+  )
+end
+
 function CarbineUIFixes:BuildUIContextMenuPlayerFix()
   local description = {
     "ContextMenuPlayer tries to access unitTarget everytime but it is only set whenever you are close to somebody.",
