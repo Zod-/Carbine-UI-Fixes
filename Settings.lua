@@ -44,3 +44,15 @@ function CarbineUIFixes:BuildUIHelper(title, description, url)
      onclick = function() end
   })
 end
+
+function CarbineUIFixes:BuildUIContextMenuPlayerFix()
+  local description = {
+    "ContextMenuPlayer tries to access unitTarget everytime but it is only set whenever you are close to somebody.",
+    "\nThis means right clicking on anyone that is out of range e.g. in /Nexus chat or in guild list will cause the addon to throw errors."
+  }
+  self:BuildUIHelper(
+    "ContextMenuPlayerFix",
+     description,
+    "https://forums.wildstar-online.com/forums/index.php?/topic/152970-new-bugs-introduced-after-the-recent-patch/"
+  )
+end

@@ -8,6 +8,7 @@
   <Form Name="_uiMapper\panel.xml"/>
 
   <!-- Fixes -->
+  <Script Name="fixes\ContextMenuPlayerFix.lua"/>
 
   <!-- Core functionality -->
   <Script Name="CarbineUIFixes.lua"/>
