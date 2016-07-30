@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Zod Bain@Jabbit" APIVersion="12" Name="CarbineUIFixes" Description="Collection of fixes for bugs and issues in Carbine addons">
+  <!-- GeminiHook -->
+  <Script Name="libs\GeminiHook\GeminiHook-1.0.lua" />
+
+  <!-- _uiMapper -->
+  <Script Name="_uiMapper\core.lua"/>
+  <Form Name="_uiMapper\panel.xml"/>
+
+  <!-- Fixes -->
+
+  <!-- Core functionality -->
+  <Script Name="CarbineUIFixes.lua"/>
+  <Script Name="Settings.lua"/>
+</Addon>
