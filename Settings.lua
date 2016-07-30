@@ -81,3 +81,15 @@ function CarbineUIFixes:BuildUIBGContextMenuPlayerFix()
     "https://forums.wildstar-online.com/forums/index.php?/topic/152682-contextmenuplayer-in-battlegrounds/"
   )
 end
+
+function CarbineUIFixes:BuildUIContextWhisperFix()
+  local description = {
+    "When right clicking someone to whisper them it will select the first tab of the chat as input instead of the active one.",
+    "\nIt works for account whispers so I copied that functionality."
+  }
+  self:BuildUIHelper(
+    "ContextWhisperFix",
+     description,
+    "https://forums.wildstar-online.com/forums/index.php?/topic/153024-contextmenuplayer-whisper/"
+  )
+end
