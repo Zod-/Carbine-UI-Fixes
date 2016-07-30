@@ -2,7 +2,7 @@ require "Apollo"
 
 local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.2",
-  version = "1.5.4.13938.0.2.1",
+  version = "1.5.4.13938.0.3.0",
   author = "Zod Bain@Jabbit",
   allFixes = {
     "WhisperFix",
