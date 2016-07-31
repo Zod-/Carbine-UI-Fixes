@@ -1,25 +1,25 @@
 _G.CarbineUIFixes = rawget(_G, "CarbineUIFixes") or {}
 
-local ContextWhisperFix = {}
+local ActiveChatTabFix = {}
 
-function ContextWhisperFix:new(o)
+function ActiveChatTabFix:new(o)
   o = o or {}
   setmetatable(o, self)
   self.__index = self
   return o
 end
 
-function ContextWhisperFix:Init()
+function ActiveChatTabFix:Init()
   self.dependencies = {"ChatLog"}
 end
 
-function ContextWhisperFix:OnLoad()
+function ActiveChatTabFix:OnLoad()
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
   self:RawHook(Apollo.GetAddon("ChatLog"), "OnGenericEvent_ChatLogWhisper")
   self:RawHook(Apollo.GetAddon("ChatLog"), "HelperGetCurrentEditbox")
 end
 
-function ContextWhisperFix:HelperGetCurrentEditbox(self)
+function ActiveChatTabFix:HelperGetCurrentEditbox(self)
   local wndEdit
   -- find the last used chat window
   for idx, wndCurrent in pairs(self.tChatWindows) do
@@ -44,7 +44,7 @@ function ContextWhisperFix:HelperGetCurrentEditbox(self)
   return wndEdit
 end
 
-function ContextWhisperFix:OnGenericEvent_ChatLogWhisper(self, strTarget)
+function ActiveChatTabFix:OnGenericEvent_ChatLogWhisper(self, strTarget)
   local wndParent = nil
   for idx, wndCurr in pairs(self.tChatWindows) do
     if wndCurr and wndCurr:IsValid() and wndCurr:GetData() and not wndCurr:GetData().bCombatLog then
@@ -69,4 +69,4 @@ function ContextWhisperFix:OnGenericEvent_ChatLogWhisper(self, strTarget)
   self:OnInputChanged(nil, wndEdit, strOutput)
 end
 
-_G.CarbineUIFixes.ContextWhisperFix = ContextWhisperFix:new()
+_G.CarbineUIFixes.ActiveChatTabFix = ActiveChatTabFix:new()

@@ -8,7 +8,7 @@ local CarbineUIFixes = {
     "WhisperFix",
     "ContextMenuPlayerFix",
     "BGContextMenuPlayerFix",
-    "ContextWhisperFix"
+    "ActiveChatTabFix"
   },
   fixes = rawget(_G, "CarbineUIFixes") or {}
 }

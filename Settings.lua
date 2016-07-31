@@ -82,13 +82,13 @@ function CarbineUIFixes:BuildUIBGContextMenuPlayerFix()
   )
 end
 
-function CarbineUIFixes:BuildUIContextWhisperFix()
+function CarbineUIFixes:BuildUIActiveChatTabFix()
   local description = {
-    "When right clicking someone to whisper them it will select the first tab of the chat as input instead of the active one.",
-    "\nIt works for account whispers so I copied that functionality."
+    "When linking something to chat or trying to whisper someone from the ContextMenu it will always go",
+    "Into the last used chat tab instead of the one you are in right now."
   }
   self:BuildUIHelper(
-    "ContextWhisperFix",
+    "ActiveChatTabFix",
      description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/153024-contextmenuplayer-whisper/"
   )
