@@ -16,6 +16,32 @@ end
 function ContextWhisperFix:OnLoad()
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
   self:RawHook(Apollo.GetAddon("ChatLog"), "OnGenericEvent_ChatLogWhisper")
+  self:RawHook(Apollo.GetAddon("ChatLog"), "HelperGetCurrentEditbox")
+end
+
+function ContextWhisperFix:HelperGetCurrentEditbox(self)
+  local wndEdit
+  -- find the last used chat window
+  for idx, wndCurrent in pairs(self.tChatWindows) do
+    local tData = wndCurrent:GetData()
+    if tData and not tData.bCombatLog and wndCurrent:FindChild("Input"):GetData() and wndCurrent:IsShown() then
+      wndEdit = wndCurrent:FindChild("Input")
+      break
+    end
+  end
+
+  -- if none found, use the first on our list
+  if wndEdit == nil then
+    for idx, wndCurrent in pairs(self.tChatWindows) do
+      local tData = wndCurrent:GetData()
+      if tData and not tData.bCombatLog and wndCurrent:IsShown() then
+        wndEdit = wndCurrent:FindChild("Input")
+        break
+      end
+    end
+  end
+
+  return wndEdit
 end
 
 function ContextWhisperFix:OnGenericEvent_ChatLogWhisper(self, strTarget)
