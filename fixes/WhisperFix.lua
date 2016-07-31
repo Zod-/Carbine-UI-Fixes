@@ -62,8 +62,7 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
           --Look for @Realm when it's a full character name
           strPattern = "@%a*"
         else
-          local split = string.split(strSend, " ")
-          if split[2] and string.match(split[2], "[^@]+@%a+") then
+          if string.match(self.strLastTarget, "[^%s]+%s[^@]+@%a+") then
             strPattern = "@%a*"
           else
             strPattern = "%s"
