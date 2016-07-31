@@ -35,12 +35,14 @@ function ActiveChatTabFix:HelperGetCurrentEditbox(self)
     local wndFallback
     for idx, wndCurrent in pairs(self.tChatWindows) do
       local tData = wndCurrent:GetData()
-      if tData and not tData.bCombatLog and wndCurrent:IsShown() then
-        wndEdit = wndCurrent:FindChild("Input")
-        break
-      elseif tData and not tData.bCombatLog then
-        --When the only active tab is combatlog use something else as backup
-        wndFallback = wndCurrent:FindChild("Input")
+      if tData and not tData.bCombatLog then
+        if wndCurrent:IsShown() then --find an active tab
+          wndEdit = wndCurrent:FindChild("Input")
+          break
+        else
+          --When the only active tab is combatlog use something else as backup
+          wndFallback = wndFallback or wndCurrent:FindChild("Input")
+        end
       end
     end
     wndEdit = wndEdit or wndFallback
