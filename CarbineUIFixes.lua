@@ -20,12 +20,21 @@ function CarbineUIFixes:new(o)
   return o
 end
 
+function CarbineUIFixes:ExecOnFix(fix, funcName, ...)
+  if fix[funcName] then
+    return pcall(fix[funcName], fix, ...)
+  end
+end
+
 function CarbineUIFixes:ExecOnFixes(funcName, ...)
-  for _,fix in pairs(self.fixes) do
+  local result = {}
+  for key, fix in pairs(self.fixes) do
     if fix[funcName] then
       local err, res = pcall(fix[funcName], fix, ...)
+      result[key] = res
     end
   end
+  return result
 end
 
 function CarbineUIFixes:InitFixes()
@@ -78,6 +87,18 @@ end
 function CarbineUIFixes:OnConfigure()
   if self.ui then
     self.ui.wndMain:Show(true,true)
+  end
+end
+
+function CarbineUIFixes:OnSave(saveLevel)
+  return self:ExecOnFixes("OnSave", saveLevel)
+end
+
+function CarbineUIFixes:OnRestore(saveLevel, data)
+  for key, val in pairs(data) do
+    if self.fixes[key] then
+      self:ExecOnFix(self.fixes[key], "OnRestore", saveLevel, data)
+    end
   end
 end
 
