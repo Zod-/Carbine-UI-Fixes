@@ -22,14 +22,15 @@ function ContextMenuPlayerFix:new(o)
 end
 
 function ContextMenuPlayerFix:Init()
-  self.load = Apollo.GetAddon("ContextMenuPlayerFix") == nil
-  self.dependencies = self.load and {"ContextMenuPlayer"} or {}
+  self.dependencies = {"ContextMenuPlayer"}
+
+  local cmpf = Apollo.GetAddon("ContextMenuPlayerFix")
+  if cmpf then
+    cmpf.OnLoad = function () end
+  end
 end
 
 function ContextMenuPlayerFix:OnLoad()
-  if not self.load then
-    return
-  end
   local cmp = Apollo.GetAddon("ContextMenuPlayer")
   cmp.RedrawAll = function ()
     self:RedrawAll(cmp)

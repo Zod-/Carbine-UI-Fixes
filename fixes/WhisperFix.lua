@@ -11,14 +11,15 @@ function WhisperFix:new(o)
 end
 
 function WhisperFix:Init()
-  self.load = Apollo.GetAddon("WhisperFix") == nil
-  self.dependencies = self.load and {"ChatLog"} or {}
+  self.dependencies = {"ChatLog"}
+
+  local wf = Apollo.GetAddon("WhisperFix")
+  if wf then
+    wf.OnLoad = function () end
+  end
 end
 
 function WhisperFix:OnLoad()
-  if not self.load then
-    return
-  end
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
   self:Hook(Apollo.GetAddon("ChatLog"), "OnDocumentReady")
 end
