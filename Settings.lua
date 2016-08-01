@@ -93,3 +93,15 @@ function CarbineUIFixes:BuildUIActiveChatTabFix()
     "https://forums.wildstar-online.com/forums/index.php?/topic/153024-contextmenuplayer-whisper/"
   )
 end
+
+function CarbineUIFixes:BuildUIQueuePopDisappearFix()
+  local description = {
+    "Reloading UI with a pending game window open will make it disappear permanently.",
+    "\nThis causes you to get queue penalties when loosing the pvp window for example."
+  }
+  self:BuildUIHelper(
+    "QueuePopDisappearFix",
+     description,
+    "https://forums.wildstar-online.com/forums/index.php?/topic/153043-pending-game-and-reloadui/"
+  )
+end
