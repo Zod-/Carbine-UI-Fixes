@@ -1,5 +1,7 @@
 require "Apollo"
+require "GameLib"
 
+local GAME_VERSION = GameLib.GetVersionInfo()
 local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.2",
   version = "1.5.4.13938.0.5.0",
@@ -38,7 +40,26 @@ function CarbineUIFixes:ExecOnFixes(funcName, ...)
   return result
 end
 
+function CarbineUIFixes:IsVersionEqual(compVersion)
+  local result = true
+  for key, val in pairs(compVersion) do
+    result = result and GAME_VERSION[key] == val
+  end
+  return result
+end
+
+function CarbineUIFixes:SetFixesActive()
+  for key, fix in pairs(self.fixes) do
+    if fix.lastActiveVersion then
+      fix.active = self:IsVersionEqual(fix.lastActiveVersion)
+    else
+      fix.active = true
+    end
+  end
+end
+
 function CarbineUIFixes:InitFixes()
+  self:SetFixesActive()
   self:ExecOnFixes("Init", self)
 end
 
@@ -50,12 +71,14 @@ end
 
 function CarbineUIFixes:RegisterFixesAsAddons()
   for key, fix in pairs(self.fixes) do
-    Apollo.RegisterAddon(
-      fix,
-      fix.configEnabled or false,
-      fix.configTitle or "",
-      fix.dependencies or {}
-    )
+    if fix.active then
+      Apollo.RegisterAddon(
+        fix,
+        fix.configEnabled or false,
+        fix.configTitle or "",
+        fix.dependencies or {}
+      )
+    end
   end
 end
 
