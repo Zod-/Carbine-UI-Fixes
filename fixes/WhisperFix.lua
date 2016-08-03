@@ -56,14 +56,14 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
 
       local strPattern = ""
       if channelChecking:GetType() == ChatSystemLib.ChatChannel_Whisper then
-        --First fix to also include accented characters
         strPattern = "%s[^%s]*%s-"
       elseif channelChecking:GetType() == ChatSystemLib.ChatChannel_AccountWhisper then
         if self.tAccountWhisperContex then
-          --Look for @Realm when it's a full character name
           strPattern = "@%a*"
         else
-          if string.match(self.strLastTarget, "[^%s]+%s[^@]+@%a+") then
+          local fields = {}
+          strSend:gsub("([^%s]+)", function(c) fields[#fields+1] = c end)
+          if fields[2] and string.match(fields[2], "^[^@]+@%a+$") then
             strPattern = "@%a*"
           else
             strPattern = "%s"
