@@ -16,7 +16,8 @@ end
 
 function CarbineUIFixes:BuildUIFixes(active)
   for _,v in ipairs(self.allFixes) do
-    if (self.fixes[v] ~= nil) == active then
+    local addonActive = self.fixes[v] and self.fixes[v].active or false
+    if addonActive == active then
       self["BuildUI"..v](self)
     end
   end

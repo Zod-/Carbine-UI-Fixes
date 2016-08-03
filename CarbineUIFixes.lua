@@ -1,8 +1,10 @@
 require "Apollo"
+require "GameLib"
 
+local GAME_VERSION = GameLib.GetVersionInfo()
 local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.2",
-  version = "1.5.4.13938.0.5.0",
+  version = "1.5.4.13938.0.5.1",
   author = "Zod Bain@Jabbit",
   allFixes = {
     "WhisperFix",
@@ -38,37 +40,49 @@ function CarbineUIFixes:ExecOnFixes(funcName, ...)
   return result
 end
 
+function CarbineUIFixes:IsVersionEqual(compVersion)
+  local result = true
+  for key, val in pairs(compVersion) do
+    result = result and GAME_VERSION[key] == val
+  end
+  return result
+end
+
+function CarbineUIFixes:SetFixesActive()
+  for key, fix in pairs(self.fixes) do
+    if fix.lastActiveVersion then
+      fix.active = self:IsVersionEqual(fix.lastActiveVersion)
+    else
+      fix.active = true
+    end
+  end
+end
+
 function CarbineUIFixes:InitFixes()
+  self:SetFixesActive()
   self:ExecOnFixes("Init", self)
 end
 
 function CarbineUIFixes:Init()
   self:InitFixes()
-  self:GetDependencies()
-
-  Apollo.RegisterAddon(self, true, "Carbine UI Fixes", self.dependencies)
+  Apollo.RegisterAddon(self, true, "Carbine UI Fixes", {self.uiMapperLib})
+  self:RegisterFixesAsAddons()
 end
 
-function CarbineUIFixes:GetDependencies()
-  self.dependencies = {self.uiMapperLib}
-  local duplicate = {}
-  for k,fix in pairs(self.fixes) do
-    for _,v in ipairs(fix.dependencies) do
-      if not duplicate[v] then
-        table.insert(self.dependencies, v)
-        duplicate[v] = true
-      end
+function CarbineUIFixes:RegisterFixesAsAddons()
+  for key, fix in pairs(self.fixes) do
+    if fix.active then
+      Apollo.RegisterAddon(
+        fix,
+        fix.configEnabled or false,
+        fix.configTitle or "",
+        fix.dependencies or {}
+      )
     end
   end
 end
 
-function CarbineUIFixes:OnLoadFixes()
-  self:ExecOnFixes("OnLoad", self)
-end
-
 function CarbineUIFixes:OnLoad()
-  self:OnLoadFixes()
-
   local uiMapper = Apollo.GetPackage(self.uiMapperLib).tPackage
   Apollo.RegisterSlashCommand("cf", "OnConfigure", self)
   Apollo.RegisterSlashCommand("carbinefixes", "OnConfigure", self)
@@ -88,18 +102,6 @@ end
 function CarbineUIFixes:OnConfigure()
   if self.ui then
     self.ui.wndMain:Show(true,true)
-  end
-end
-
-function CarbineUIFixes:OnSave(saveLevel)
-  return self:ExecOnFixes("OnSave", saveLevel)
-end
-
-function CarbineUIFixes:OnRestore(saveLevel, data)
-  for key, val in pairs(data) do
-    if self.fixes[key] then
-      self:ExecOnFix(self.fixes[key], "OnRestore", saveLevel, data)
-    end
   end
 end
 
