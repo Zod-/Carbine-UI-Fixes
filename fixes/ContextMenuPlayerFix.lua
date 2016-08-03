@@ -1,7 +1,14 @@
 require "Apollo"
 _G.CarbineUIFixes = rawget(_G, "CarbineUIFixes") or {}
 
-local ContextMenuPlayerFix = {}
+local ContextMenuPlayerFix = {
+  lastActiveVersion = {
+    nVersion = 1,
+    nVersionMajor = 5,
+    nVersionMinor = 4,
+    nBuildNumber = 13938
+  }
+}
 
 local kstrRaidMarkerToSprite = {
   "Icon_Windows_UI_CRB_Marker_Bomb",
@@ -22,15 +29,19 @@ function ContextMenuPlayerFix:new(o)
 end
 
 function ContextMenuPlayerFix:Init()
-  self.dependencies = {"ContextMenuPlayer"}
-
-  local cmpf = Apollo.GetAddon("ContextMenuPlayerFix")
-  if cmpf then
-    cmpf.OnLoad = function () end
+  self.load = true
+  if self.active and Apollo.GetAddon("ContextMenuPlayerFix") ~= nil then
+    self.load = false
+  end
+  if self.active then
+    self.dependencies = {"ContextMenuPlayer"}
   end
 end
 
 function ContextMenuPlayerFix:OnLoad()
+  if not self.load then
+    return
+  end
   local cmp = Apollo.GetAddon("ContextMenuPlayer")
   cmp.RedrawAll = function ()
     self:RedrawAll(cmp)
