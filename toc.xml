@@ -9,7 +9,6 @@
 
   <!-- Fixes -->
   <Script Name="fixes\WhisperFix.lua"/>
-  <Script Name="fixes\ContextMenuPlayerFix.lua"/>
   <Script Name="fixes\ActiveChatTabFix.lua"/>
   <Script Name="fixes\QueuePopDisappearFix.lua"/>
 
