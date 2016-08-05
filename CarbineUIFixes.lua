@@ -11,7 +11,8 @@ local CarbineUIFixes = {
     "ContextMenuPlayerFix",
     "BGContextMenuPlayerFix",
     "ActiveChatTabFix",
-    "QueuePopDisappearFix"
+    "QueuePopDisappearFix",
+    "GlobalNonCombatSpellbookFix"
   },
   fixes = rawget(_G, "CarbineUIFixes") or {}
 }

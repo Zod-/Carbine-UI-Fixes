@@ -106,3 +106,16 @@ function CarbineUIFixes:BuildUIQueuePopDisappearFix()
     "https://forums.wildstar-online.com/forums/index.php?/topic/153043-pending-game-and-reloadui/"
   )
 end
+
+function CarbineUIFixes:BuildUIGlobalNonCombatSpellbookFix()
+  local description = {
+    "Due to a bug in both Carbines and atleast one 3rd party addon the Non-Combat Ability menu crashes when opening it.",
+    "\nCarbine reads from a global variable by accident and 3rd party addons writes to the same global variable by accident.",
+    "\nBoth mistakes combined cause the crash."
+  }
+  self:BuildUIHelper(
+    "GlobalNonCombatSpellbookFix",
+     description,
+    "https://forums.wildstar-online.com/forums/index.php?/topic/153100-crash-in-noncombatspellbook/"
+  )
+end
