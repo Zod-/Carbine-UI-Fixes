@@ -60,18 +60,14 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
 
       local strPattern = ""
       if channelChecking:GetType() == ChatSystemLib.ChatChannel_Whisper then
-        strPattern = "%s[^%s]*%s-"
+        strPattern = "[^%s]+%s[^%s]+"
       elseif channelChecking:GetType() == ChatSystemLib.ChatChannel_AccountWhisper then
-        if self.tAccountWhisperContex then
-          strPattern = "@%a*"
+        local fields = {}
+        strSend:gsub("([^%s]+)", function(c) fields[#fields+1] = c end)
+        if fields[2] and string.match(fields[2], "^[^@]+@%a+$") then
+          strPattern = "@%a+"
         else
-          local fields = {}
-          strSend:gsub("([^%s]+)", function(c) fields[#fields+1] = c end)
-          if fields[2] and string.match(fields[2], "^[^@]+@%a+$") then
-            strPattern = "@%a*"
-          else
-            strPattern = "%s"
-          end
+          strPattern = "%s"
         end
       end
       local nPlaceHolder, nSubstringStop = string.find(strSend, strPattern)
