@@ -51,7 +51,6 @@ function GlobalNonCombatSpellbookFix:ShowTab(self)
   self.wndEntryContainer:SetText(#self.wndEntryContainer:GetChildren() == 0 and Apollo.GetString("NCSpellbook_NoResultsAvailable") or "")
   self.wndEntryContainerMisc:SetText(#self.wndEntryContainerMisc:GetChildren() == 0 and Apollo.GetString("NCSpellbook_NoResultsAvailable") or "")
 
-
   for idx, wndTab in pairs(self.wndTabsContainer:GetChildren()) do
     wndTab:SetCheck(self.nSelectedTab == wndTab:GetData())
   end

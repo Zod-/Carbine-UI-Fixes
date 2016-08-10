@@ -28,7 +28,7 @@ function CarbineUIFixes:BuildUICredits()
     "This addon is developed by Zod Bain@Jabbit",
     "\nSpecial thanks to the developers of _uiMapper and GeminiHook which made it a lot easier to create this addon."
   }
- self.ui:header("Developer Credits"):note(table.concat(credits, ""))
+  self.ui:header("Developer Credits"):note(table.concat(credits, ""))
 end
 
 function CarbineUIFixes:BuildUIHelper(title, description, url)
@@ -39,11 +39,11 @@ function CarbineUIFixes:BuildUIHelper(title, description, url)
   self.ui:header(title)
   :note(description)
   :confirmbutton({
-     label = "Copy bug thread url",
-     confirmButtonType = GameLib.CodeEnumConfirmButtonType.CopyToClipboard,
-     actionData = url,
-     onclick = function() end
-  })
+      label = "Copy bug thread url",
+      confirmButtonType = GameLib.CodeEnumConfirmButtonType.CopyToClipboard,
+      actionData = url,
+      onclick = function() end
+    })
 end
 
 function CarbineUIFixes:BuildUIWhisperFix()
@@ -53,7 +53,7 @@ function CarbineUIFixes:BuildUIWhisperFix()
   }
   self:BuildUIHelper(
     "WhisperResponseFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/152665-whisper-and-account-whisper-issues/"
   )
 end
@@ -65,7 +65,7 @@ function CarbineUIFixes:BuildUIContextMenuPlayerFix()
   }
   self:BuildUIHelper(
     "ContextMenuPlayerFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/152970-new-bugs-introduced-after-the-recent-patch/"
   )
 end
@@ -78,7 +78,7 @@ function CarbineUIFixes:BuildUIBGContextMenuPlayerFix()
   }
   self:BuildUIHelper(
     "BGContextMenuPlayerFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/152682-contextmenuplayer-in-battlegrounds/"
   )
 end
@@ -90,7 +90,7 @@ function CarbineUIFixes:BuildUIActiveChatTabFix()
   }
   self:BuildUIHelper(
     "ActiveChatTabFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/153024-contextmenuplayer-whisper/"
   )
 end
@@ -102,7 +102,7 @@ function CarbineUIFixes:BuildUIQueuePopDisappearFix()
   }
   self:BuildUIHelper(
     "QueuePopDisappearFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/153043-pending-game-and-reloadui/"
   )
 end
@@ -115,7 +115,7 @@ function CarbineUIFixes:BuildUIGlobalNonCombatSpellbookFix()
   }
   self:BuildUIHelper(
     "GlobalNonCombatSpellbookFix",
-     description,
+    description,
     "https://forums.wildstar-online.com/forums/index.php?/topic/153100-crash-in-noncombatspellbook/"
   )
 end

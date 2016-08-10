@@ -89,15 +89,15 @@ function CarbineUIFixes:OnLoad()
   Apollo.RegisterSlashCommand("carbinefixes", "OnConfigure", self)
 
   self.ui = uiMapper:new({
-    container = self.config,
-    defaults  = self.defaults,
-    name      = "Carbine UI Fixes",
-    author    = self.author,
-    version   = self.version
-  })
+      container = self.config,
+      defaults = self.defaults,
+      name = "Carbine UI Fixes",
+      author = self.author,
+      version = self.version
+    })
   self.ui:build(function(ui)
-    self:BuildConfig(ui)
-  end)
+      self:BuildConfig(ui)
+    end)
 end
 
 function CarbineUIFixes:OnConfigure()
