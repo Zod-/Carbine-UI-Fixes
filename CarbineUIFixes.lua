@@ -4,7 +4,7 @@ require "GameLib"
 local GAME_VERSION = GameLib.GetVersionInfo()
 local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.2",
-  version = "1.5.4.13938.0.6.0",
+  version = "1.5.4.14004.0.6.1",
   author = "Zod Bain@Jabbit",
   allFixes = {
     "WhisperFix",
