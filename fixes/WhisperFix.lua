@@ -16,7 +16,7 @@ function WhisperFix:Init()
 end
 
 function WhisperFix:UnloadWhisperFix()
-  wf = Apollo.GetAddon("WhisperFix")
+  local wf = Apollo.GetAddon("WhisperFix")
   if wf then
     wf.OnLoad = function () end
   end
