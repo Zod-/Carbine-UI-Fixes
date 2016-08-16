@@ -3,7 +3,7 @@ require "GameLib"
 
 local GAME_VERSION = GameLib.GetVersionInfo()
 local CarbineUIFixes = {
-  uiMapperLib = "uiMapper:0.9.2",
+  uiMapperLib = "uiMapper:0.9.3",
   version = "1.5.4.14004.0.6.1",
   author = "Zod Bain@Jabbit",
   allFixes = {
@@ -102,7 +102,7 @@ end
 
 function CarbineUIFixes:OnConfigure()
   if self.ui then
-    self.ui.wndMain:Show(true,true)
+    self.ui:OnSlashCommand()
   end
 end
 
