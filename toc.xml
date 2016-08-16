@@ -4,8 +4,8 @@
   <Script Name="libs\GeminiHook\GeminiHook-1.0.lua" />
 
   <!-- _uiMapper -->
-  <Script Name="_uiMapper\core.lua"/>
-  <Form Name="_uiMapper\panel.xml"/>
+  <Script Name="libs\_uiMapper\core.lua"/>
+  <Form Name="libs\_uiMapper\panel.xml"/>
 
   <!-- Fixes -->
   <Script Name="fixes\WhisperFix.lua"/>
