@@ -6,14 +6,6 @@ local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.3",
   version = "1.5.4.14004.0.6.1",
   author = "Zod Bain@Jabbit",
-  allFixes = {
-    "WhisperFix",
-    "ContextMenuPlayerFix",
-    "BGContextMenuPlayerFix",
-    "ActiveChatTabFix",
-    "QueuePopDisappearFix",
-    "GlobalNonCombatSpellbookFix"
-  },
   fixes = rawget(_G, "CarbineUIFixes") or {}
 }
 
@@ -53,7 +45,7 @@ function CarbineUIFixes:SetFixesActive()
   for key, fix in pairs(self.fixes) do
     if fix.lastActiveVersion then
       fix.active = self:IsVersionEqual(fix.lastActiveVersion)
-    else
+    elseif fix.active ~= false then
       fix.active = true
     end
   end

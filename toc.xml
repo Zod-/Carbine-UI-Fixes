@@ -8,6 +8,8 @@
   <Form Name="libs\_uiMapper\panel.xml"/>
 
   <!-- Fixes -->
+  <Script Name="fixes\ContextMenuPlayerFix.lua"/>
+  <Script Name="fixes\BGContextMenuPlayerFix.lua"/>
   <Script Name="fixes\WhisperFix.lua"/>
   <Script Name="fixes\ActiveChatTabFix.lua"/>
   <Script Name="fixes\QueuePopDisappearFix.lua"/>

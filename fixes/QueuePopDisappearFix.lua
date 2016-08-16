@@ -1,7 +1,13 @@
 _G.CarbineUIFixes = rawget(_G, "CarbineUIFixes") or {}
 
 require "MatchingGameLib"
-local QueuePopDisappearFix = {}
+local QueuePopDisappearFix = {
+  url = "https://forums.wildstar-online.com/forums/index.php?/topic/153043-pending-game-and-reloadui/",
+  description = {
+    "Reloading UI with a pending game window open will make it disappear permanently.",
+    "\nThis causes you to get queue penalties when loosing the pvp window for example."
+  }
+}
 
 function QueuePopDisappearFix:new(o)
   o = o or {}

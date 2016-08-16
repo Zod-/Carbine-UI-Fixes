@@ -1,6 +1,12 @@
 _G.CarbineUIFixes = rawget(_G, "CarbineUIFixes") or {}
 
-local ActiveChatTabFix = {}
+local ActiveChatTabFix = {
+  url = "https://forums.wildstar-online.com/forums/index.php?/topic/153024-contextmenuplayer-whisper/",
+  description = {
+    "When linking something to chat or trying to whisper someone from the ContextMenu it will always go",
+    "Into the last used chat tab instead of the one you are in right now."
+  }
+}
 
 function ActiveChatTabFix:new(o)
   o = o or {}
