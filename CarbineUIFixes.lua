@@ -8,6 +8,7 @@ local CarbineUIFixes = {
   author = "Zod Bain@Jabbit",
   fixes = rawget(_G, "CarbineUIFixes") or {}
 }
+_G.CarbineUIFixes = nil --Cleanup global
 
 function CarbineUIFixes:new(o)
   o = o or {}
