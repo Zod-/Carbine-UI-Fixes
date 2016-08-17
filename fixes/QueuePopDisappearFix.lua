@@ -38,10 +38,18 @@ function QueuePopDisappearFix:OnGameReady(inProgress)
 end
 
 function QueuePopDisappearFix:OnSave(saveLevel)
+  if eType ~= GameLib.CodeEnumAddonSaveLevel.Character then
+    return nil
+  end
+
   return {inProgress = self.inProgress}
 end
 
 function QueuePopDisappearFix:OnRestore(saveLevel, data)
+  if eType ~= GameLib.CodeEnumAddonSaveLevel.Character then
+    return nil
+  end
+
   self.inProgress = data.inProgress or false
 end
 
