@@ -4,9 +4,13 @@ require "GameLib"
 local GAME_VERSION = GameLib.GetVersionInfo()
 local CarbineUIFixes = {
   uiMapperLib = "uiMapper:0.9.3",
+  uiMapperPath = "libs/_uiMapper/",
   version = "1.5.4.14004.0.6.1",
   author = "Zod Bain@Jabbit",
-  fixes = rawget(_G, "CarbineUIFixes") or {}
+  fixes = rawget(_G, "CarbineUIFixes") or {},
+  saveDataVersion = 1,
+  defaults = {},
+  config = {},
 }
 _G.CarbineUIFixes = nil --Cleanup global
 
@@ -81,16 +85,74 @@ function CarbineUIFixes:OnLoad()
   Apollo.RegisterSlashCommand("cf", "OnConfigure", self)
   Apollo.RegisterSlashCommand("carbinefixes", "OnConfigure", self)
 
+  self.defaults = self:GetDefaults()
+  self.config = self:GetDefaults()
+
   self.ui = uiMapper:new({
       container = self.config,
       defaults = self.defaults,
       name = "Carbine UI Fixes",
       author = self.author,
-      version = self.version
-    })
-  self.ui:build(function(ui)
-      self:BuildConfig(ui)
-    end)
+      version = self.version,
+      path = self.uiMapperPath,
+    }
+  ):build(self.BuildConfig, self)
+end
+
+function CarbineUIFixes:GetDefaults()
+  return {
+    debug = false,
+  }
+end
+
+function CarbineUIFixes:OnSave(eType)
+  if eType ~= GameLib.CodeEnumAddonSaveLevel.General then
+    return nil
+  end
+
+  local saveData = {
+    config = self.config,
+    saveDataVersion = self.saveDataVersion,
+  }
+
+  return saveData
+end
+
+function CarbineUIFixes:OnRestore(eType, saveData)
+  if eType ~= GameLib.CodeEnumAddonSaveLevel.General then
+    return
+  end
+
+  for k, v in pairs(self.config) do
+    if saveData.config[k] ~= nil then
+      self.config[k] = saveData.config[k]
+    end
+  end
+
+  self:OnLoadDebug()
+end
+
+function CarbineUIFixes:Print(message)
+  if type(message) ~= "string" then
+    message = tostring(message)
+  end
+  Print("[CarbineUIFixes]: " .. message) --Change to proper logs
+end
+
+function CarbineUIFixes:OnLoadDebug()
+  if not self.config.debug then
+    return
+  end
+
+  if not SendVarToRover then
+    self:Print("Could not find Rover.")
+    return
+  end
+
+  SendVarToRover("CarbineUIFixes", self)
+  for name, fix in pairs(self.fixes) do
+    SendVarToRover(name, fix)
+  end
 end
 
 function CarbineUIFixes:OnConfigure()

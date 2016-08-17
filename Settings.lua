@@ -9,8 +9,9 @@ function CarbineUIFixes:BuildConfig(ui)
   ui:category("Patched Fixes")
   self:BuildUIFixes(false)
 
-  -- Credits
-  ui:navdivider():category("Credits")
+  -- Config and Credits
+  ui:navdivider()
+  self:BuildUIConfig()
   self:BuildUICredits()
 end
 
@@ -22,12 +23,23 @@ function CarbineUIFixes:BuildUIFixes(active)
   end
 end
 
+function CarbineUIFixes:BuildUIConfig()
+  self.ui:category("Config")
+  :header("Configuration")
+  :check({
+      label = "Debug",
+      map = "debug",
+      onchange = { handler = self.OnLoadDebug, context = self }
+    }
+  )
+end
+
 function CarbineUIFixes:BuildUICredits()
   local credits = {
     "This addon is developed by Zod Bain@Jabbit",
     "\nSpecial thanks to the developers of _uiMapper and GeminiHook which made it a lot easier to create this addon."
   }
-  self.ui:header("Developer Credits"):note(table.concat(credits, ""))
+  self.ui:category("Credits"):header("Developer Credits"):note(table.concat(credits, ""))
 end
 
 function CarbineUIFixes:BuildUIHelper(title, description, url)
