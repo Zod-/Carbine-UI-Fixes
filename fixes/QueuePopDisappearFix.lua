@@ -38,7 +38,7 @@ function QueuePopDisappearFix:OnGameReady(inProgress)
 end
 
 function QueuePopDisappearFix:OnSave(saveLevel)
-  if eType ~= GameLib.CodeEnumAddonSaveLevel.Character then
+  if saveLevel ~= GameLib.CodeEnumAddonSaveLevel.Character then
     return nil
   end
 
@@ -46,7 +46,7 @@ function QueuePopDisappearFix:OnSave(saveLevel)
 end
 
 function QueuePopDisappearFix:OnRestore(saveLevel, data)
-  if eType ~= GameLib.CodeEnumAddonSaveLevel.Character then
+  if saveLevel ~= GameLib.CodeEnumAddonSaveLevel.Character then
     return nil
   end
 
