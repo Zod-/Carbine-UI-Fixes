@@ -95,6 +95,7 @@ globals = {
   "Unit",
   "Vector2",
   "Vector3",
+  "Window",
   "XmlDoc",
   "Print",
   "Event_FireGenericEvent",
