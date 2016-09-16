@@ -99,5 +99,6 @@ globals = {
   "XmlDoc",
   "Print",
   "Event_FireGenericEvent",
+  "String_GetWeaselString",
   "SendVarToRover",
 }
