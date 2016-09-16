@@ -28,7 +28,7 @@ end
 function ActiveChatTabFix:HelperGetCurrentEditbox(self)
   local wndEdit
   -- find the last used chat window
-  for idx, wndCurrent in pairs(self.tChatWindows) do
+  for _, wndCurrent in pairs(self.tChatWindows) do
     local tData = wndCurrent:GetData()
     if tData and not tData.bCombatLog and wndCurrent:FindChild("Input"):GetData() and wndCurrent:IsShown() then
       wndEdit = wndCurrent:FindChild("Input")
@@ -39,7 +39,7 @@ function ActiveChatTabFix:HelperGetCurrentEditbox(self)
   -- if none found, use the first on our list
   if wndEdit == nil then
     local wndFallback
-    for idx, wndCurrent in pairs(self.tChatWindows) do
+    for _, wndCurrent in pairs(self.tChatWindows) do
       local tData = wndCurrent:GetData()
       if tData and not tData.bCombatLog then
         if wndCurrent:IsShown() then --find an active tab
@@ -59,7 +59,7 @@ end
 
 function ActiveChatTabFix:OnGenericEvent_ChatLogWhisper(self, strTarget)
   local wndParent = nil
-  for idx, wndCurr in pairs(self.tChatWindows) do
+  for _, wndCurr in pairs(self.tChatWindows) do
     if wndCurr and wndCurr:IsValid() and wndCurr:GetData() and not wndCurr:GetData().bCombatLog then
       wndParent = wndCurr
       break

@@ -41,8 +41,6 @@ end
 
 --Copying carbines function and fixing the issues
 function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndChat)
-  local tChatData = wndChat:GetData()
-
   local bNewChannel = self.channelLastChannel ~= channelChecking
   self.channelLastChannel = channelChecking
   if self.tAllViewedChannels[channelChecking:GetUniqueId()] ~= nil then
@@ -58,7 +56,7 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
       self.strLastTarget = ""
     end
 
-    local strSend = ""
+    local strSend
     if self.strLastTarget and self.strLastTarget ~= "" then
       strSend = self.strLastTarget.." "..strMessage
     else
@@ -76,7 +74,7 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
           strPattern = "%s"
         end
       end
-      local nPlaceHolder, nSubstringStop = string.find(strSend, strPattern)
+      local _, nSubstringStop = string.find(strSend, strPattern)
 
       if not nSubstringStop then
         nSubstringStop = Apollo.StringLength(strSend)
@@ -92,7 +90,7 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
   else
     local wndInput = wndChat:FindChild("Input")
 
-    strMessage = String_GetWeaselString(Apollo.GetString("CRB_Message_not_sent_you_are_not_viewing"), channelChecking:GetName())
+    local strMessage = String_GetWeaselString(Apollo.GetString("CRB_Message_not_sent_you_are_not_viewing"), channelChecking:GetName())
     ChatSystemLib.PostOnChannel( ChatSystemLib.ChatChannel_Command, strMessage, "" )
     wndInput:SetText(String_GetWeaselString(Apollo.GetString("ChatLog_MessageToPlayer"), tInput.strCommand, tInput.strMessage))
     wndInput:SetFocus()

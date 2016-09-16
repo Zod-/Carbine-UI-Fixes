@@ -37,7 +37,7 @@ function GlobalNonCombatSpellbookFix:ShowTab(self)
   self.wndEntryContainer:Show(self.nSelectedTab == karTabTypes.Cmd)
   self.wndEntryContainerMisc:Show(self.nSelectedTab == karTabTypes.Misc)
 
-  for idx, tData in pairs(self.arLists[self.nSelectedTab]) do
+  for _, tData in pairs(self.arLists[self.nSelectedTab]) do
     if self.nSelectedTab == karTabTypes.Misc and tData.bIsActive then
       self:HelperCreateMiscEntry(tData)
     elseif self.nSelectedTab == karTabTypes.Cmd then
@@ -59,7 +59,7 @@ function GlobalNonCombatSpellbookFix:ShowTab(self)
   self.wndEntryContainer:SetText(#self.wndEntryContainer:GetChildren() == 0 and Apollo.GetString("NCSpellbook_NoResultsAvailable") or "")
   self.wndEntryContainerMisc:SetText(#self.wndEntryContainerMisc:GetChildren() == 0 and Apollo.GetString("NCSpellbook_NoResultsAvailable") or "")
 
-  for idx, wndTab in pairs(self.wndTabsContainer:GetChildren()) do
+  for _, wndTab in pairs(self.wndTabsContainer:GetChildren()) do
     wndTab:SetCheck(self.nSelectedTab == wndTab:GetData())
   end
 end

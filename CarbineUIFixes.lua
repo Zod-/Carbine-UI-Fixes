@@ -32,7 +32,11 @@ function CarbineUIFixes:ExecOnFixes(funcName, ...)
   for key, fix in pairs(self.fixes) do
     if fix[funcName] then
       local err, res = pcall(fix[funcName], fix, ...)
-      result[key] = res
+      if not err then
+        Print(res)
+      else
+        result[key] = res
+      end
     end
   end
   return result
@@ -47,7 +51,7 @@ function CarbineUIFixes:IsVersionEqual(compVersion)
 end
 
 function CarbineUIFixes:SetFixesActive()
-  for key, fix in pairs(self.fixes) do
+  for _, fix in next, self.fixes do
     if fix.lastActiveVersion then
       fix.active = self:IsVersionEqual(fix.lastActiveVersion)
     elseif fix.active ~= false then
@@ -68,7 +72,7 @@ function CarbineUIFixes:Init()
 end
 
 function CarbineUIFixes:RegisterFixesAsAddons()
-  for key, fix in pairs(self.fixes) do
+  for _, fix in next, self.fixes do
     if fix.active then
       Apollo.RegisterAddon(
         fix,
@@ -123,7 +127,7 @@ function CarbineUIFixes:OnRestore(eType, saveData)
     return
   end
 
-  for k, v in pairs(self.config) do
+  for k, _ in next, self.config do
     if saveData.config[k] ~= nil then
       self.config[k] = saveData.config[k]
     end
