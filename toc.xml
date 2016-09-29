@@ -14,7 +14,7 @@
   <Script Name="fixes\ActiveChatTabFix.lua"/>
   <Script Name="fixes\QueuePopDisappearFix.lua"/>
   <Script Name="fixes\GlobalNonCombatSpellbookFix.lua"/>
-
+  <Script Name="fixes\VarChangeDeprecationFix.lua"/>
 
   <!-- Core functionality -->
   <Script Name="CarbineUIFixes.lua"/>
