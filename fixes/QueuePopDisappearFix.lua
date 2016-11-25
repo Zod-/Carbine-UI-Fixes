@@ -17,14 +17,18 @@ function QueuePopDisappearFix:new(o)
 end
 
 function QueuePopDisappearFix:Init()
-  self.dependencies = {"MatchMaker"}
   self.inProgress = false
 end
 
 function QueuePopDisappearFix:OnLoad()
   Apollo.RegisterEventHandler("MatchingGameReady", "OnGameReady", self)
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
-  self:PostHook(Apollo.GetAddon("MatchMaker"), "OnDocumentReady")
+  self:BindHooks(Apollo.GetAddon("MatchMaker"))
+end
+
+function QueuePopDisappearFix:BindHooks(addon)
+  if not addon then return end
+  self:PostHook(addon, "OnDocumentReady")
 end
 
 function QueuePopDisappearFix:OnDocumentReady(MatchMaker)

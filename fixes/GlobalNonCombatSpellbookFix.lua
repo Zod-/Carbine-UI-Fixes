@@ -21,13 +21,14 @@ function GlobalNonCombatSpellbookFix:new(o)
   return o
 end
 
-function GlobalNonCombatSpellbookFix:Init()
-  self.dependencies = {"NonCombatSpellbook"}
-end
-
 function GlobalNonCombatSpellbookFix:OnLoad()
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
-  self:RawHook(Apollo.GetAddon("NonCombatSpellbook"), "ShowTab")
+  self:BindHooks(Apollo.GetAddon("NonCombatSpellbook"))
+end
+
+function GlobalNonCombatSpellbookFix:BindHooks(addon)
+  if not addon then return end
+  self:RawHook(addon, "ShowTab")
 end
 
 function GlobalNonCombatSpellbookFix:ShowTab(self)

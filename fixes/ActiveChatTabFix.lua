@@ -15,14 +15,15 @@ function ActiveChatTabFix:new(o)
   return o
 end
 
-function ActiveChatTabFix:Init()
-  self.dependencies = {"ChatLog"}
-end
-
 function ActiveChatTabFix:OnLoad()
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
-  self:RawHook(Apollo.GetAddon("ChatLog"), "OnGenericEvent_ChatLogWhisper")
-  self:RawHook(Apollo.GetAddon("ChatLog"), "HelperGetCurrentEditbox")
+  self:BindHooks(Apollo.GetAddon("ChatLog"))
+end
+
+function ActiveChatTabFix:BindHooks(addon)
+  if not addon then return end
+  self:RawHook(addon, "OnGenericEvent_ChatLogWhisper")
+  self:RawHook(addon, "HelperGetCurrentEditbox")
 end
 
 function ActiveChatTabFix:HelperGetCurrentEditbox(self)

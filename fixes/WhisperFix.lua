@@ -17,7 +17,6 @@ function WhisperFix:new(o)
 end
 
 function WhisperFix:Init()
-  self.dependencies = {"ChatLog"}
   self:UnloadWhisperFix()
 end
 
@@ -31,7 +30,12 @@ end
 function WhisperFix:OnLoad()
   self:UnloadWhisperFix()
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
-  self:Hook(Apollo.GetAddon("ChatLog"), "OnDocumentReady")
+  self:BindHooks(Apollo.GetAddon("ChatLog"))
+end
+
+function WhisperFix:BindHooks(addon)
+  if not addon then return end
+  self:Hook(addon, "OnDocumentReady")
 end
 
 function WhisperFix:OnDocumentReady()
