@@ -24,16 +24,27 @@ function QueuePopDisappearFix:OnLoad()
   Apollo.RegisterEventHandler("MatchingGameReady", "OnGameReady", self)
   Apollo.GetPackage("Gemini:Hook-1.0").tPackage:Embed(self)
   self:BindHooks(Apollo.GetAddon("MatchMaker"))
+  self.delayTimer = ApolloTimer.Create(0.1, false, "OnDelayTimer", self)
+  self.delayTimer:Stop()
 end
 
 function QueuePopDisappearFix:BindHooks(addon)
   if not addon then return end
-  self:PostHook(addon, "OnDocumentReady")
+  -- really ugly hack to get otherwise unaccessible MatchMaker reference
+  self:Hook(Apollo, "RegisterEventHandler", "OnRegisterEventHandler")
 end
 
-function QueuePopDisappearFix:OnDocumentReady(MatchMaker)
-  if MatchingGameLib.IsPendingGame() then
-    MatchMaker:OnGameReady(self.inProgress)
+function QueuePopDisappearFix:OnRegisterEventHandler(eventName, functionName, MatchMaker)
+  if eventName == "ToggleGroupFinder" and functionName == "OnToggleMatchMaker" then
+    self.MatchMaker = MatchMaker
+    self.delayTimer:Start()
+    self:Unhook(Apollo, "RegisterEventHandler")
+  end
+end
+
+function QueuePopDisappearFix:OnDelayTimer()
+  if MatchingGameLib.IsPendingGame() and self.MatchMaker then
+    self.MatchMaker:OnGameReady(self.inProgress)
   end
 end
 
