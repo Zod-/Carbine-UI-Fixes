@@ -49,12 +49,6 @@ function WhisperFix:VerifyChannelVisibility(self, channelChecking, tInput, wndCh
   self.channelLastChannel = channelChecking
   if self.tAllViewedChannels[channelChecking:GetUniqueId()] ~= nil then
     local strMessage = tInput.strMessage
-    if channelChecking:GetType() == ChatSystemLib.ChatChannel_AccountWhisper then
-      if self.tAccountWhisperContex then
-        local strCharacterAndRealm = self.tAccountWhisperContex.strCharacterName .. "@" .. self.tAccountWhisperContex.strRealmName
-        strMessage = string.gsub(strMessage, self.tAccountWhisperContex.strDisplayName, strCharacterAndRealm, 1)
-      end
-    end
 
     if tInput.strCommand ~= "" or bNewChannel then
       self.strLastTarget = ""
